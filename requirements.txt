@@ -1,0 +1,11 @@
+flask
+flask_cors
+torch
+gradio
+transformers
+accelerate
+safetensors
+huggingface-hub
+beautifulsoup4
+protobuf
+fastapi
