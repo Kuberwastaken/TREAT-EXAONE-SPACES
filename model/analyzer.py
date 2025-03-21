@@ -1,5 +1,5 @@
 import os
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from datetime import datetime
 import gradio as gr
@@ -69,7 +69,7 @@ class ContentAnalyzer:
             if progress:
                 progress(0.3, "Loading model...")
             
-            self.model = AutoModelForSeq2SeqLM.from_pretrained(
+            self.model = AutoModelForCausalLM.from_pretrained(
                 "LGAI-EXAONE/EXAONE-Deep-2.4B",
                 torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
                 device_map="auto",
@@ -145,10 +145,10 @@ class ContentAnalyzer:
                         outputs = self.model.generate(
                             **inputs,
                             max_new_tokens=20,
-                            temperature=0.2,
-                            top_p=0.85,
-                            num_beams=3,
-                            early_stopping=True,
+                            temperature=0.7,
+                            top_p=0.9,
+                            top_k=50,
+                            repetition_penalty=1.2,
                             pad_token_id=self.tokenizer.eos_token_id,
                             do_sample=True
                         )
