@@ -104,6 +104,20 @@ class ContentAnalyzer:
         first_word = response.split()[0] if response else "NO"
         return first_word if first_word in valid_responses else "NO"
 
+    async def _generate_outputs(self, inputs):
+        """Helper method to generate outputs with torch.no_grad()."""
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=500, 
+                temperature=0.3,   # Lower temperature for more focused responses
+                top_p=0.95,       # Slightly higher to ensure valid responses
+                top_k=10,         # Reduced to limit vocabulary to relevant tokens
+                pad_token_id=self.tokenizer.eos_token_id,
+                do_sample=True    # Keep sampling for slight variation
+            )
+        return outputs
+
     async def analyze_chunks_batch(
         self,
         chunks: List[str],
@@ -135,18 +149,10 @@ class ContentAnalyzer:
                         max_length=512
                     ).to(self.device)
                     
-                    async with asyncio.timeout(self.max_thinking_time):
-                        with torch.no_grad():
-                            outputs = self.model.generate(
-                                **inputs,
-                                max_new_tokens=20,
-                                temperature=0.7,
-                                top_p=0.9,
-                                top_k=50,
-                                repetition_penalty=1.2,
-                                pad_token_id=self.tokenizer.eos_token_id,
-                                do_sample=True
-                            )
+                    outputs = await asyncio.wait_for(
+                    self._generate_outputs(inputs),
+                    timeout=self.max_thinking_time
+                )
                     
                     responses = [
                         self.tokenizer.decode(output, skip_special_tokens=True)
