@@ -62,7 +62,8 @@ class ContentAnalyzer:
             
             self.tokenizer = AutoTokenizer.from_pretrained(
                 "LGAI-EXAONE/EXAONE-Deep-2.4B",
-                use_fast=True
+                use_fast=True,
+                trust_remote_code=True
             )
             
             if progress:
@@ -71,7 +72,8 @@ class ContentAnalyzer:
             self.model = AutoModelForSeq2SeqLM.from_pretrained(
                 "LGAI-EXAONE/EXAONE-Deep-2.4B",
                 torch_dtype=torch.float16 if self.device == "cuda" else torch.float32,
-                device_map="auto"
+                device_map="auto",
+                trust_remote_code=True
             )
             
             if self.device == "cuda":
