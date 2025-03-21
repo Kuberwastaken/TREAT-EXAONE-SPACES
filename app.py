@@ -45,11 +45,11 @@ custom_css = """
     bottom: 0;
     background: 
         linear-gradient(125deg, 
-            #0a0a0f 0%, 
-            rgba(99, 102, 241, 0.05) 30%,
-            rgba(99, 102, 241, 0.1) 50%,
-            rgba(99, 102, 241, 0.05) 70%,
-            #0a0a0f 100%);
+            #4f46e5 0%, 
+            rgba(219, 39, 119, 0.05) 30%,
+            rgba(219, 39, 119, 0.1) 50%,
+            rgba(219, 39, 119, 0.05) 70%,
+            #4f46e5 100%);
     animation: gradientMove 15s ease infinite;
     background-size: 400% 400%;
     z-index: 0;
@@ -64,7 +64,7 @@ custom_css = """
     width: 100%;
     height: 100%;
     background: radial-gradient(circle at center, transparent 0%, #0a0a0f 70%),
-                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='rgba(99, 102, 241, 0.15)'/%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='1' fill='rgba(219, 39, 119, 0.15)'/%3E%3C/svg%3E");
     opacity: 0.5;
     animation: floatingParticles 20s linear infinite;
     z-index: 1;
@@ -78,7 +78,7 @@ custom_css = """
     overflow: hidden;
     z-index: 2;
     background: linear-gradient(180deg, 
-        rgba(99, 102, 241, 0.1),
+        rgba(219, 39, 119, 0.1),
         transparent 70%);
 }
 
@@ -91,7 +91,7 @@ custom_css = """
     height: 1px;
     background: linear-gradient(90deg, 
         transparent,
-        rgba(99, 102, 241, 0.5),
+        rgba(219, 39, 119, 0.5),
         transparent);
     transform: translateX(-50%);
     animation: scanline 3s ease-in-out infinite;
@@ -101,9 +101,9 @@ custom_css = """
     font-size: 4.5rem;
     font-weight: 800;
     background: linear-gradient(135deg, 
-        #2a2b55 0%,
-        #6366f1 50%,
-        #2a2b55 100%);
+        #4f46e5 0%,
+        #db2777 50%,
+        #4f46e5 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -122,7 +122,7 @@ custom_css = """
     height: 100%;
     background: linear-gradient(135deg, 
         transparent 0%,
-        rgba(99, 102, 241, 0.4) 50%,
+        rgba(219, 39, 119, 0.4) 50%,
         transparent 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
@@ -143,14 +143,14 @@ custom_css = """
 /* Tabs Styling */
 .tabs {
     background: rgba(17, 17, 27, 0.7);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(219, 39, 119, 0.2);
     border-radius: 16px;
     padding: 1rem;
     margin: 0 1rem 2rem 1rem;
     position: relative;
     z-index: 2;
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+    box-shadow: 0 0 30px rgba(219, 39, 119, 0.1);
     animation: floatIn 1s ease-out;
 }
 
@@ -162,9 +162,9 @@ custom_css = """
     right: -1px;
     bottom: -1px;
     background: linear-gradient(45deg,
-        rgba(99, 102, 241, 0.1),
+        rgba(79, 70, 229, 0.1),
         transparent,
-        rgba(99, 102, 241, 0.1));
+        rgba(219, 39, 119, 0.1));
     border-radius: 16px;
     z-index: -1;
     animation: borderGlow 4s ease-in-out infinite;
@@ -173,7 +173,7 @@ custom_css = """
 /* Content Area */
 .content-area {
     background: rgba(17, 17, 27, 0.7) !important;
-    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+    border: 1px solid rgba(219, 39, 119, 0.2) !important;
     border-radius: 12px !important;
     padding: 1.5rem !important;
     backdrop-filter: blur(10px);
@@ -190,7 +190,7 @@ custom_css = """
     width: 200%;
     height: 200%;
     background: radial-gradient(circle at center,
-        rgba(99, 102, 241, 0.1) 0%,
+        rgba(219, 39, 119, 0.1) 0%,
         transparent 70%);
     animation: rotateGradient 10s linear infinite;
 }
@@ -198,7 +198,7 @@ custom_css = """
 /* Input Fields */
 .gradio-textbox textarea {
     background: rgba(17, 17, 27, 0.6) !important;
-    border: 1px solid rgba(99, 102, 241, 0.3) !important;
+    border: 1px solid rgba(219, 39, 119, 0.3) !important;
     border-radius: 8px !important;
     color: rgba(255, 255, 255, 0.9) !important;
     font-size: 0.95rem !important;
@@ -210,8 +210,8 @@ custom_css = """
 }
 
 .gradio-textbox textarea:focus {
-    border-color: #6366f1 !important;
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2) !important;
+    border-color: #db2777 !important;
+    box-shadow: 0 0 20px rgba(219, 39, 119, 0.2) !important;
     background: rgba(17, 17, 27, 0.8) !important;
     transform: translateY(-2px);
 }
@@ -219,9 +219,9 @@ custom_css = """
 /* Buttons */
 .gradio-button {
     background: linear-gradient(45deg, 
-        #6366f1,
-        #818cf8,
-        #6366f1) !important;
+        #4f46e5,
+        #db2777,
+        #4f46e5) !important;
     background-size: 200% auto !important;
     border: none !important;
     border-radius: 8px !important;
@@ -252,7 +252,7 @@ custom_css = """
 
 .gradio-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.4) !important;
+    box-shadow: 0 5px 20px rgba(219, 39, 119, 0.4) !important;
 }
 
 .gradio-button:hover::before {
@@ -262,7 +262,7 @@ custom_css = """
 /* Results Area */
 .results-area {
     background: rgba(17, 17, 27, 0.7) !important;
-    border: 1px solid rgba(99, 102, 241, 0.2) !important;
+    border: 1px solid rgba(219, 39, 119, 0.2) !important;
     border-radius: 12px !important;
     margin-top: 2rem !important;
     backdrop-filter: blur(10px);
@@ -289,7 +289,7 @@ custom_css = """
 }
 
 .footer .heart {
-    color: #6366f1;
+    color: #db2777;
     display: inline-block;
     position: relative;
     font-size: 1.0rem;
@@ -319,7 +319,7 @@ custom_css = """
 }
 
 .footer .name {
-    color: #6366f1;
+    color: #4f46e5;
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease;
@@ -327,7 +327,7 @@ custom_css = """
 }
 
 .footer .name:hover {
-    color: #818cf8;
+    color: #db2777;
 }
 
 footer {

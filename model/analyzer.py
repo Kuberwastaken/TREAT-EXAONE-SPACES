@@ -6,6 +6,7 @@ import gradio as gr
 from typing import Dict, List, Union, Optional
 import logging
 import traceback
+import asyncio
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -134,24 +135,18 @@ class ContentAnalyzer:
                         max_length=512
                     ).to(self.device)
                     
-                    import signal
-                    def timeout_handler(signum, frame):
-                        raise TimeoutError("Model thinking time exceeded")
-                    
-                    signal.signal(signal.SIGALRM, timeout_handler)
-                    signal.alarm(self.max_thinking_time)
-                    
-                    with torch.no_grad():
-                        outputs = self.model.generate(
-                            **inputs,
-                            max_new_tokens=20,
-                            temperature=0.7,
-                            top_p=0.9,
-                            top_k=50,
-                            repetition_penalty=1.2,
-                            pad_token_id=self.tokenizer.eos_token_id,
-                            do_sample=True
-                        )
+                    async with asyncio.timeout(self.max_thinking_time):
+                        with torch.no_grad():
+                            outputs = self.model.generate(
+                                **inputs,
+                                max_new_tokens=20,
+                                temperature=0.7,
+                                top_p=0.9,
+                                top_k=50,
+                                repetition_penalty=1.2,
+                                pad_token_id=self.tokenizer.eos_token_id,
+                                do_sample=True
+                            )
                     
                     responses = [
                         self.tokenizer.decode(output, skip_special_tokens=True)
@@ -165,6 +160,9 @@ class ContentAnalyzer:
                         elif validated_response == "MAYBE":
                             all_triggers[mapped_name] = all_triggers.get(mapped_name, 0) + 0.5
                 
+                except asyncio.TimeoutError:
+                    logger.error(f"Timeout processing batch for {mapped_name}")
+                    continue
                 except Exception as e:
                     logger.error(f"Error processing batch for {mapped_name}: {str(e)}")
                     continue
@@ -219,7 +217,7 @@ async def analyze_content(
         result = {
             "detected_triggers": triggers,
             "confidence": "High - Content detected" if triggers != ["None"] else "High - No concerning content detected",
-            "model": "google/large-t5-base",
+            "model": "LGAI-EXAONE/EXAONE-Deep-2.4B",
             "analysis_timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
 
@@ -230,8 +228,8 @@ async def analyze_content(
         logger.error(f"Analysis error: {str(e)}")
         return {
             "detected_triggers": ["Error occurred during analysis"],
-            "confidence": "Error",
-            "model": "google/flan-t5-base",
+            "confidence": "Error", 
+            "model": "LGAI-EXAONE/EXAONE-Deep-2.4B",
             "analysis_timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "error": str(e)
         }
